@@ -17,9 +17,10 @@
                 "python.linting.pylintEnabled": true
             },
             "extensions": [
-                "ms-python.python",
-		        "ms-toolsai.jupyter"
-            ]
+				"ms-python.python",
+				"ms-toolsai.jupyter",
+				"KevinRose.vsc-python-indent"
+			]
         }
     }
 }

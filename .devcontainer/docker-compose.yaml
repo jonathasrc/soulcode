@@ -4,7 +4,8 @@ services:
     # build:
     #   context: .
     #   dockerfile: Dockerfile
-    image: soulcode:1.00  # Nome da imagem a ser construída
+    # image: jupyter/all-spark-notebook:spark-3.5.0  # Nome da imagem a ser construída
+    image: soulcode:1.02
     volumes:
       - ..:/home/jovyan/code
     ports:
