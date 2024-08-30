@@ -1,0 +1,7 @@
+,id,nome,idade,area,salario,data_de_contratacao,status_de_emprego
+0,1,João Silva,29,Financeiro,5500.0,01/02/2020,Ativo
+1,2,Maria Souza,30,Rh,4800.0,15-03-2019,Ativo
+2,4,Ana Clara,27,Marketing,4800.0,12/06/2018,Ativo
+3,7,José Alves,34,Marketing,5400.0,2018/02/01,Inativo
+4,8,Luciana Costa,30,Financeiro,5200.0,01.01.2019,Ativo
+5,1,João Silva,29,Financeiro,5500.0,01/02/2020,Ativo
