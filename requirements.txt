@@ -1,2 +1,6 @@
 pandas
 unidecode
+google-cloud-storage
+google-cloud-bigquery
+gcsfs
+
