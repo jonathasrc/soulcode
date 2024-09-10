@@ -313,9 +313,126 @@ HAVING COUNT(E.id_empregado) > 5;
 
 -- SELECT * FROM View_Departamentos_Com_Muitos_Empregados ORDER BY qnt_funcionarios DESC;
 
+/*
+*Desafio 5: Empregados e Seus Gerentes 
+*9. Liste todos os empregados juntamente com o nome de seus gerentes.
+*10.Crie uma view chamada View_Empregados_Gerentes que mostre todos  os empregados e o nome de seus gerentes. 
+*/
+
+SELECT E.nome AS empregado, G.nome AS gerente FROM tb_empregado E
+JOIN tb_gerente G ON E.id_gerente = G.id_gerente; 
+
+CREATE VIEW View_Empregados_Gerentes AS
+SELECT E.nome AS empregado, G.nome AS gerente FROM tb_empregado E
+JOIN tb_gerente G ON E.id_gerente = G.id_gerente; 
+
+-- SELECT * FROM View_Empregados_Gerentes;
+/*
+*Desafio 6: Departamentos Sem Empregados 
+*11.Liste todos os departamentos que não têm empregados. 
+*12.Crie uma view chamada View_Departamentos_Sem_Empregados que  contenha os departamentos que não têm empregados. 
+*/
+
+-- 11
+SELECT D.nome AS departamento FROM tb_departamento D
+LEFT JOIN tb_empregado E ON D.id_departamento = E.id_departamento
+WHERE E.id_empregado IS NOT NULL GROUP BY D.nome;
+
+-- 12
+-- DROP VIEW View_Departamentos_Sem_Empregados;
+CREATE VIEW View_Departamentos_Sem_Empregados AS
+SELECT D.nome AS departamento FROM tb_departamento D
+LEFT JOIN tb_empregado E ON D.id_departamento = E.id_departamento
+WHERE E.id_empregado IS NULL GROUP BY D.nome;
+
+-- SELECT * FROM View_Departamentos_Sem_Empregados;
+
+/*
+ * Desafio 7: Salários Acima de um Valor Específico 
+*13.Liste todos os empregados que têm um salário acima de R$ 5000. 
+*14.Crie uma view chamada View_Salarios_Acima_5000 que contenha os  empregados com salário acima de R$ 5000. 
+*/
+
+-- 13
+
+SELECT nome, salario FROM tb_empregado WHERE salario > 5000;
+
+-- 14
+CREATE VIEW View_Salarios_Acima_5000 AS
+SELECT nome, salario FROM tb_empregado WHERE salario > 5000;
+
+-- SELECT * FROM View_Salarios_Acima_5000;
+/*
+
+*Desafio 8: Empregados por Data de Admissão 
+*15.Liste todos os empregados que foram admitidos nos últimos 6 meses.
+*16.Crie uma view chamada View_Admitidos_Recentemente que contenha os  empregados admitidos nos últimos 6 meses. 
+*/
+
+-- SELECT * FROM tb_empregado E
+-- WHERE YEAR(E.data_admissao) = 2024;
+
+-- 15
+SELECT E.nome FROM tb_empregado E 
+WHERE E.data_admissao >= DATE_SUB(CURDATE(), INTERVAL 6 MONTH); 
+
+-- 16
+CREATE VIEW View_Admitidos_Recentemente AS
+SELECT E.nome FROM tb_empregado E 
+WHERE E.data_admissao >= DATE_SUB(CURDATE(), INTERVAL 6 MONTH);
 
 
+-- INSERT INTO tb_empregado (nome, cargo, salario, data_admissao, id_gerente, id_departamento) VALUES
+-- ('DUMMY RECENTE 6 MESES', 'Especialista em Segurança da Informação', 9200.00, '2024-04-12', 2, 3);
+
+-- SELECT * FROM View_Admitidos_Recentemente;
+/*
+*Desafio 9: Agrupar Empregados por Cargo 
+*17.Liste o número de empregados em cada cargo. 
+*18.Crie uma view chamada View_Empregados_Por_Cargo que mostre o  número de empregados em cada cargo. 
+*/
+
+-- 17
+
+SELECT E.cargo, COUNT(E.id_empregado) AS qnt_empregados FROM tb_empregado E
+GROUP BY E.cargo ORDER BY qnt_empregados DESC;
 
 
+-- 18
+CREATE VIEW View_Empregados_Por_Cargo AS 
+SELECT E.cargo, COUNT(E.id_empregado) AS qnt_empregados FROM tb_empregado E
+GROUP BY E.cargo ORDER BY qnt_empregados DESC;
+
+
+-- SELECT * FROM View_Empregados_Por_Cargo;
+
+/*
+ * Desafio 10: Empregados de um Departamento com Condição de Salário 
+ *19.Liste todos os empregados do departamento 'Finance' que têm um salário  acima da média dos salários dos empregados desse departamento.
+ * 20.Crie uma view chamada View_Finance_Salarios_Acima_Media que  contenha os empregados do departamento 'Finance' com salário acima  da média. 
+ *
+ */
+
+-- 19
+SELECT D.nome, E.nome, E.salario FROM tb_departamento D
+JOIN tb_empregado E ON D.id_departamento = E.id_departamento
+WHERE D.nome = "Financeiro" AND
+E.salario > (SELECT AVG(E2.salario) FROM tb_empregado E2
+	JOIN tb_departamento D2 ON E2.id_departamento = D2.id_departamento
+	WHERE D2.nome = "Financeiro"
+);
+
+-- 20
+
+CREATE VIEW View_Finance_Salarios_Acima_Media AS
+SELECT D.nome AS departamento, E.nome AS empregado, E.salario FROM tb_departamento D
+JOIN tb_empregado E ON D.id_departamento = E.id_departamento
+WHERE D.nome = "Financeiro" AND
+E.salario > (SELECT AVG(E2.salario) FROM tb_empregado E2
+	JOIN tb_departamento D2 ON E2.id_departamento = D2.id_departamento
+	WHERE D2.nome = "Financeiro"
+);
+
+SELECT * FROM View_Finance_Salarios_Acima_Media;
 
 
