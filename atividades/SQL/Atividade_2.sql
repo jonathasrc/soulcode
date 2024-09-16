@@ -230,6 +230,64 @@ SELECT D.nome FROM DEPARTAMENTO D
 LEFT JOIN EMPREGADO E ON D.numdepto = E.numdepto
 WHERE D.numdepto IS NULL;
 
+/*
+ * 16. Projetos Ativos e seus Empregados (INNER JOIN + WHERE)
+ * Liste todos os projetos que ainda estão em andamento e os empregados que
+ * estão trabalhando neles.
+ */
+
+SELECT P.nome, TE.matricula FROM PROJETO P
+INNER JOIN TRABALHA_EM TE ON P.codprojeto = TE.codprojeto
+WHERE P.data_fim IS NULL OR  CURRENT_DATE() < P.data_fim;
+
+/*
+ * 17. Empregados e suas Habilidades e Projetos (INNER JOIN + Multiple Tables)
+- Liste todos os empregados juntamente com suas habilidades e os projetos em que
+estão trabalhando.
+ */
+
+SELECT E.nome AS EMPREGADO, EH.codhabilidade AS HABILIDADE, TE.codprojeto AS CODIGO_PROJETO FROM EMPREGADO E
+INNER JOIN EMPREGADO_HABILIDADE EH ON E.matricula = EH.matricula	
+INNER JOIN TRABALHA_EM TE ON E.matricula  = TE.matricula
+
+/*
+ * 18. Projetos e Data de Início mais Recente (INNER JOIN + MAX)
+- Liste todos os projetos juntamente com a data de início mais recente de um
+empregado que começou a trabalhar nesse projeto.
+ */
+
+SELECT P.nome AS projeto, MAX( TE.data_inicio) AS data_inicio_recente FROM PROJETO P
+INNER JOIN TRABALHA_EM TE ON P.codprojeto = TE.codprojeto
+GROUP BY P.nome ORDER BY data_inicio_recente DESC;
+
+
+/*
+ * 19. Empregados que Trabalham em Mais de um Projeto (INNER JOIN + HAVING
+ * COUNT)
+ *Liste todos os empregados que estão trabalhando em mais de um projeto.
+ */
+
+SELECT E.nome AS EMPREGADO FROM EMPREGADO E
+INNER JOIN TRABALHA_EM TE ON E.matricula = TE.matricula
+GROUP BY E.nome 
+HAVING COUNT(TE.codprojeto) > 1;
+
+/*
+ * 20. Empregados e Departamento, Habilidade e Projeto (Multiple INNER JOINs)
+ * Liste todos os empregados juntamente com o nome do departamento, a descrição
+ * da habilidade e o nome do projeto em que estão trabalhando.
+ */
+
+SELECT E.nome AS EMPREGADO,
+D.nome AS DEPARTAMENTO,
+H.descricao AS DESCRICAO_HABILIDADE,
+P.nome as PROJETO
+FROM EMPREGADO E
+INNER JOIN DEPARTAMENTO D ON E.numdepto = D.numdepto
+INNER JOIN EMPREGADO_HABILIDADE EH ON E.matricula = EH.matricula
+INNER JOIN HABILIDADE H ON H.codhabilidade = EH.codhabilidade
+INNER JOIN TRABALHA_EM TE ON TE.matricula = E.matricula
+INNER JOIN PROJETO P ON P.codprojeto = TE.codprojeto
 
 
 
