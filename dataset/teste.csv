@@ -1,0 +1,12 @@
+,ID,Nome,Idade,Área,Salário,Data de Contratação,Status de Emprego
+0,1,João Silva,29.0,Financeiro,5500,01/02/2020,Ativo
+1,2,Maria Souza,30.0,RH,4800,15-03-2019,ativo
+2,3,Carlos Pereira,,Finaceiro,6200,2020/04/01,Ativo
+3,4,Ana Clara,27.0,Marketing,4800,12/06/2018,Ativo
+4,5,Fabio Santos,31.0,,5500,20-11-2017,ativo
+5,6,Sandra Lima,28.0,RH,,05-05-2020,Ativo
+6,7,José Alves,34.0,Marketing,5400,2018/02/01,inativo
+7,8,Luciana Costa,30.0,Financeiro,R$ 5200,01.01.2019,Ativo
+8,9,Paulo Ricardo,,Finaceiro,6100,12/12/2020,Inativo
+9,10,Fernanda Dias,29.0,RH,4800,,Ativo
+10,1,João Silva,29.0,Financeiro,5500,01/02/2020,Ativo
