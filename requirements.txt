@@ -1,6 +1,11 @@
 pandas
+sqlalchemy
+pymysql
 unidecode
+google-cloud
 google-cloud-storage
 google-cloud-bigquery
 gcsfs
+mysql-connector-python
+
 
